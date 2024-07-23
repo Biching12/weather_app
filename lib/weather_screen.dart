@@ -19,7 +19,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
     try {
       final res = await http.get(
         Uri.parse(
-            'http://api.openweathermap.org/data/2.5/forecast?id=524901&appid=11a4341be34c3725f7f3f145a431ab48'),
+            'http://api.openweathermap.org/data/2.5/forecast?id=524901&appid=$openWeatherAPIKey'),
       );
 
       final data = jsonDecode(res.body);
@@ -102,7 +102,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
                                 const SizedBox(height: 20),
                                 Text(
                                   '$currentSky',
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     fontSize: 20,
                                   ),
                                 ),
