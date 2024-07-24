@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:weather_app/additional_info_item.dart';
 import 'package:weather_app/hourly_forecast_item.dart';
 import 'package:http/http.dart' as http;
@@ -30,6 +31,12 @@ class _WeatherScreenState extends State<WeatherScreen> {
     }
   }
 
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   getCurrentWeather();
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,7 +50,9 @@ class _WeatherScreenState extends State<WeatherScreen> {
         centerTitle: true,
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              setState(() {});
+            },
             icon: const Icon(Icons.refresh),
           )
         ],
@@ -121,38 +130,6 @@ class _WeatherScreenState extends State<WeatherScreen> {
                   ),
                 ),
                 const SizedBox(height: 8),
-                // const SingleChildScrollView(
-                //   scrollDirection: Axis.horizontal,
-                //   child: Row(
-                //     children: [
-                //       HourlyForecastItem(
-                //         time: "0:00",
-                //         icon: Icons.cloud,
-                //         temperature: "301.22",
-                //       ),
-                //       HourlyForecastItem(
-                //         time: "3:00",
-                //         icon: Icons.wb_sunny,
-                //         temperature: "120",
-                //       ),
-                //       HourlyForecastItem(
-                //         time: "12:00",
-                //         icon: Icons.wb_sunny,
-                //         temperature: "120",
-                //       ),
-                //       HourlyForecastItem(
-                //         time: "3.00",
-                //         icon: Icons.wb_sunny,
-                //         temperature: "120",
-                //       ),
-                //       HourlyForecastItem(
-                //         time: "3.00",
-                //         icon: Icons.wb_sunny,
-                //         temperature: "120",
-                //       ),
-                //     ],
-                //   ),
-                // ),
 
                 SizedBox(
                   height: 120,
@@ -165,8 +142,10 @@ class _WeatherScreenState extends State<WeatherScreen> {
                             data['list'][index + 1]['weather'][0]['main'];
                         final hourlyTemp =
                             hourlyForecast['main']['temp'].toString();
+                        final time =
+                            DateTime.parse(hourlyForecast['dt_txt'].toString());
                         return HourlyForecastItem(
-                            time: hourlyForecast['dt_txt'].toString(),
+                            time: DateFormat.j().format(time),
                             temperature: hourlyTemp,
                             icon: hourlySky == 'Clouds' || hourlySky == 'Rain'
                                 ? Icons.cloud
